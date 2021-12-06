@@ -29,12 +29,13 @@ jobs:
       run: mvn -B compile --file pom.xml
       
   test:
-
+    
     runs-on: ${{matrix.os}}
     strategy:
       matrix: 
         os: [ubuntu-latest, windows-latest, macOS-latest]
-
+    needs: build
+    
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 8
@@ -53,6 +54,8 @@ jobs:
 #       matrix: 
 #         os: [ubuntu-latest, windows-latest, macOS-latest]
 
+    needs: test
+    
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 8
